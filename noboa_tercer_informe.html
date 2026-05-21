@@ -1,0 +1,975 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Noboa llega a su tercer informe a la nación, un país en crisis</title>
+<meta property="og:title" content="Noboa llega a su tercer informe a la nación, un país en crisis">
+<meta property="og:description" content="Informe de datos: violencia histórica, deuda récord, empleo precario y recortes al Estado. Elaboración: Despacho del Asambleísta Juan Andrés González Alvear.">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=IBM+Plex+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --black:#080808;--near-black:#0d0d0d;--surface:#111111;--surface2:#181818;--surface3:#1f1f1f;
+  --border:#2a2a2a;--border2:#333;
+  --red:#c0392b;--red-bright:#e74c3c;--red-dim:rgba(192,57,43,.15);
+  --gold:#c9a84c;--gold-dim:rgba(201,168,76,.12);
+  --white:#f0ede8;--muted:#6b6b6b;--muted2:#888;--text:#d8d4cc;
+}
+html{scroll-behavior:smooth;background:var(--black)}
+body{color:var(--text);font-family:'IBM Plex Sans',sans-serif;font-size:15px;line-height:1.6;overflow-x:hidden}
+::selection{background:var(--red);color:#fff}
+::-webkit-scrollbar{width:3px}
+::-webkit-scrollbar-track{background:var(--black)}
+::-webkit-scrollbar-thumb{background:var(--red)}
+h1,h2,h3,h4{font-family:'Playfair Display',serif;line-height:1.15;color:var(--white)}
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
+@keyframes lineGrow{from{width:0}to{width:100%}}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
+@keyframes flickerIn{0%{opacity:0}10%{opacity:.9}20%{opacity:.3}30%{opacity:1}100%{opacity:1}}
+@keyframes scanline{0%{top:-10%}100%{top:110%}}
+.reveal{opacity:0;transform:translateY(30px);transition:opacity .7s ease,transform .7s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+
+/* ── TOPBAR ── */
+#topbar{
+  position:fixed;top:0;left:0;right:0;z-index:1000;
+  background:rgba(8,8,8,.96);border-bottom:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 24px;height:52px;backdrop-filter:blur(8px);
+}
+.tb-logo{display:flex;align-items:center;gap:10px}
+.tb-flag{font-size:18px}
+.tb-name{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:2px;color:var(--muted2);text-transform:uppercase}
+.tb-cta{
+  display:flex;align-items:center;gap:8px;
+  background:var(--red);color:#fff;padding:7px 16px;
+  font-size:11px;letter-spacing:1px;text-transform:uppercase;
+  text-decoration:none;font-weight:600;transition:background .2s;
+  font-family:'IBM Plex Mono',monospace;
+}
+.tb-cta:hover{background:var(--red-bright)}
+.tb-cta svg{width:14px;height:14px;flex-shrink:0}
+
+/* ── HERO ── */
+#hero{
+  min-height:100vh;padding-top:52px;
+  background:var(--black);
+  display:flex;flex-direction:column;justify-content:center;align-items:center;
+  text-align:center;padding:100px 24px 80px;
+  position:relative;overflow:hidden;
+}
+#hero::before{
+  content:'';position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse 90% 50% at 50% 30%,rgba(192,57,43,.10) 0%,transparent 65%),
+    radial-gradient(ellipse 60% 40% at 20% 80%,rgba(192,57,43,.04) 0%,transparent 60%);
+  pointer-events:none;
+}
+/* Animated grid bg */
+#hero::after{
+  content:'';position:absolute;inset:0;
+  background-image:linear-gradient(rgba(255,255,255,.015) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.015) 1px,transparent 1px);
+  background-size:60px 60px;
+  pointer-events:none;
+}
+/* Ecuador silhouette overlay via SVG background */
+.hero-geo{
+  position:absolute;bottom:0;left:50%;transform:translateX(-50%);
+  width:100%;max-width:800px;opacity:.04;pointer-events:none;
+  font-size:240px;line-height:1;color:var(--white);font-family:serif;
+  user-select:none;
+}
+.hero-eyebrow{
+  font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:4px;
+  text-transform:uppercase;color:var(--red-bright);margin-bottom:28px;
+  animation:flickerIn 1.2s ease forwards;position:relative;z-index:1;
+}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:8px;
+  background:rgba(192,57,43,.12);border:1px solid rgba(192,57,43,.4);
+  padding:6px 16px;margin-bottom:28px;
+  font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:2px;
+  text-transform:uppercase;color:var(--red-bright);
+  animation:flickerIn 1.4s ease forwards;position:relative;z-index:1;
+}
+.hero-badge::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--red-bright);animation:pulse 1.5s infinite}
+.hero-title{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(32px,5.5vw,72px);font-weight:900;
+  color:var(--white);line-height:1.05;margin-bottom:24px;
+  animation:fadeUp .9s .3s ease both;position:relative;z-index:1;
+  max-width:900px;
+}
+.hero-title .red{color:var(--red-bright)}
+.hero-title .gold{color:var(--gold)}
+.hero-subtitle{
+  font-size:clamp(14px,1.8vw,18px);color:var(--muted2);
+  max-width:640px;margin:0 auto 52px;font-weight:300;
+  animation:fadeUp .9s .55s ease both;position:relative;z-index:1;line-height:1.7;
+}
+.hero-rule{width:60px;height:2px;background:var(--red);margin:0 auto 40px;animation:lineGrow .8s .8s ease both;position:relative;z-index:1}
+.hero-kpi-strip{
+  display:flex;gap:0;flex-wrap:wrap;justify-content:center;
+  animation:fadeUp .9s .9s ease both;position:relative;z-index:1;
+  border:1px solid var(--border);background:var(--surface2);
+}
+.hero-kpi{
+  text-align:center;padding:20px 28px;border-right:1px solid var(--border);
+  position:relative;
+}
+.hero-kpi:last-child{border-right:none}
+.hero-kpi::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--red)}
+.hero-kpi .num{font-family:'Playfair Display',serif;font-size:36px;font-weight:900;color:var(--red-bright);display:block}
+.hero-kpi .lbl{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-top:4px}
+.hero-author{
+  position:relative;z-index:1;margin-top:40px;
+  font-size:11px;color:var(--muted);letter-spacing:1px;
+  display:flex;align-items:center;gap:10px;
+  animation:fadeUp .9s 1.1s ease both;
+}
+.hero-author::before,.hero-author::after{content:'';flex:1;height:1px;background:var(--border);max-width:80px}
+.hero-scroll{
+  position:absolute;bottom:28px;left:50%;transform:translateX(-50%);
+  font-size:10px;letter-spacing:3px;color:var(--muted);text-transform:uppercase;
+  animation:pulse 2s infinite;z-index:1;
+  display:flex;flex-direction:column;align-items:center;gap:6px;
+}
+.hero-scroll::after{content:'';width:1px;height:24px;background:rgba(255,255,255,.15)}
+
+/* ── TABLE OF CONTENTS ── */
+#toc{
+  background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border);
+  padding:48px 24px;
+}
+#toc .inner{max-width:1100px;margin:0 auto}
+.toc-label{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--red);margin-bottom:24px;display:block}
+.toc-title{font-family:'Playfair Display',serif;font-size:28px;color:var(--white);margin-bottom:32px;font-weight:700}
+.toc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1px;background:var(--border)}
+.toc-item{
+  background:var(--surface2);padding:22px 20px;
+  display:flex;align-items:flex-start;gap:16px;
+  text-decoration:none;transition:background .2s;
+  cursor:pointer;border:none;outline:none;
+}
+.toc-item:hover{background:var(--surface3)}
+.toc-item:hover .toc-arrow{opacity:1;transform:translateX(0)}
+.toc-num{
+  font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--red);
+  font-weight:500;flex-shrink:0;margin-top:2px;
+}
+.toc-content{flex:1}
+.toc-icon{font-size:22px;margin-bottom:8px;display:block}
+.toc-name{font-family:'Playfair Display',serif;font-size:16px;color:var(--white);margin-bottom:4px;font-weight:700}
+.toc-desc{font-size:11px;color:var(--muted2);line-height:1.5}
+.toc-arrow{
+  font-size:16px;color:var(--red);flex-shrink:0;margin-top:2px;
+  opacity:0;transform:translateX(-6px);transition:all .2s;
+}
+
+/* ── IMAGE DIVIDERS ── */
+.img-divider{
+  width:100%;height:220px;position:relative;overflow:hidden;
+  background:var(--near-black);
+  display:flex;align-items:center;justify-content:center;
+}
+.img-divider .overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(to right,rgba(8,8,8,.85) 0%,rgba(8,8,8,.5) 40%,rgba(8,8,8,.7) 100%);
+  z-index:1;
+}
+.img-divider .caption{
+  position:relative;z-index:2;padding:0 40px;
+  font-family:'Playfair Display',serif;font-size:clamp(20px,3vw,32px);
+  color:var(--white);font-weight:700;font-style:italic;max-width:700px;
+}
+.img-divider .caption span{color:var(--red-bright)}
+/* SVG-based visual for each divider */
+.divider-svg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.3}
+
+/* ── SECTIONS ── */
+.section{padding:80px 24px;max-width:1100px;margin:0 auto}
+.section-full{padding:80px 24px;background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.section-full .inner{max-width:1100px;margin:0 auto}
+.section-label{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--red);margin-bottom:14px;display:block}
+.section-title{font-size:clamp(28px,4vw,46px);font-weight:900;margin-bottom:10px;color:var(--white)}
+.section-sub{font-size:14px;color:var(--muted2);max-width:560px;margin-bottom:48px;line-height:1.7}
+.red-rule{width:40px;height:2px;background:var(--red);margin:0 0 36px}
+
+/* ── KPI CARDS ── */
+.kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1px;background:var(--border);margin-bottom:48px}
+.kpi-card{background:var(--surface2);padding:28px 24px;position:relative;overflow:hidden;transition:background .2s}
+.kpi-card:hover{background:var(--surface3)}
+.kpi-card::after{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--red)}
+.kpi-icon{font-size:24px;margin-bottom:10px;display:block}
+.kpi-label{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:12px}
+.kpi-value{font-family:'Playfair Display',serif;font-size:38px;font-weight:900;color:var(--red-bright);line-height:1;margin-bottom:6px}
+.kpi-value.gold{color:var(--gold)}
+.kpi-delta{font-size:12px;color:var(--muted2)}
+.kpi-delta .bad{color:var(--red-bright)}
+
+/* ── INSIGHT CALLOUTS ── */
+.insight-banner{background:var(--red-dim);border:1px solid rgba(192,57,43,.3);border-left:3px solid var(--red);padding:20px 24px;margin-bottom:20px;border-radius:0 4px 4px 0}
+.insight-banner .headline{font-family:'Playfair Display',serif;font-size:18px;color:var(--white);margin-bottom:4px;font-weight:700}
+.insight-banner .body{font-size:13px;color:var(--muted2);line-height:1.6}
+
+/* ── CHART CARD ── */
+.chart-card{background:var(--surface2);border:1px solid var(--border);padding:28px;margin-bottom:20px}
+.chart-card .c-title{font-family:'Playfair Display',serif;font-size:18px;color:var(--white);margin-bottom:4px}
+.chart-card .c-sub{font-size:12px;color:var(--muted);margin-bottom:20px}
+.chart-grid-2{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:20px}
+.chart-grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px;margin-bottom:20px}
+
+/* ── RANK BARS ── */
+.rank-list{display:flex;flex-direction:column;gap:10px;margin-top:8px}
+.rank-row{display:flex;align-items:center;gap:12px}
+.rank-n{font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--muted);width:22px;flex-shrink:0}
+.rank-name{font-size:12px;color:var(--text);flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rank-track{height:4px;flex:1.5;background:var(--border2);border-radius:2px;overflow:hidden}
+.rank-fill{height:4px;border-radius:2px;background:var(--red)}
+.rank-val{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--muted2);flex-shrink:0;text-align:right;min-width:70px}
+
+/* ── TIMELINE ── */
+.timeline-strip{display:flex;overflow-x:auto;gap:0;border:1px solid var(--border);margin-bottom:8px}
+.tl-cell{flex:1;min-width:52px;padding:10px 6px;text-align:center;border-right:1px solid var(--border);cursor:default}
+.tl-cell:last-child{border-right:none}
+.tl-cell.highlight{background:var(--red-dim);border-top:2px solid var(--red)}
+.tl-year{font-family:'IBM Plex Mono',monospace;font-size:9px;color:var(--muted);margin-bottom:4px}
+.tl-val{font-family:'Playfair Display',serif;font-size:14px;font-weight:700;color:var(--white)}
+.tl-val.danger{color:var(--red-bright)}
+
+/* ── FMI TIMELINE ── */
+.fmi-row{display:flex;gap:16px;align-items:flex-start;padding:14px 0;border-bottom:1px solid var(--border)}
+.fmi-row:last-child{border-bottom:none}
+.fmi-dot{width:10px;height:10px;border-radius:50%;background:var(--muted);flex-shrink:0;margin-top:5px}
+.fmi-dot.noboa{background:var(--red-bright)}
+.fmi-date{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--muted);width:80px;flex-shrink:0}
+.fmi-gov{font-size:11px;padding:2px 8px;border-radius:2px;flex-shrink:0;font-weight:500}
+.fmi-gov.noboa-badge{background:var(--red-dim);color:var(--red-bright);border:1px solid rgba(192,57,43,.3)}
+.fmi-gov.other{background:var(--surface3);color:var(--muted2);border:1px solid var(--border)}
+.fmi-desc{font-size:12px;color:var(--muted2);flex:1}
+.fmi-amount{font-family:'Playfair Display',serif;font-size:15px;color:var(--gold);flex-shrink:0;font-weight:700}
+
+/* ── QUOTE BLOCK ── */
+.quote-block{border-left:2px solid var(--red);padding:20px 28px;margin:32px 0;background:var(--red-dim)}
+.quote-text{font-family:'Playfair Display',serif;font-size:22px;color:var(--white);line-height:1.4;font-style:italic;margin-bottom:8px}
+.quote-source{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--red)}
+
+/* ── STAT HIGHLIGHT ── */
+.stat-row{display:flex;gap:1px;background:var(--border);margin:32px 0}
+.stat-cell{background:var(--surface2);padding:24px;flex:1;text-align:center}
+.stat-icon{font-size:28px;margin-bottom:8px;display:block}
+.stat-num{font-family:'Playfair Display',serif;font-size:28px;font-weight:900;color:var(--red-bright);display:block;margin-bottom:4px}
+.stat-lbl{font-size:11px;color:var(--muted);letter-spacing:1px;text-transform:uppercase}
+
+/* ── NOBOA BADGE ── */
+.noboa-period{display:inline-flex;align-items:center;gap:8px;background:var(--red-dim);border:1px solid rgba(192,57,43,.35);padding:6px 14px;font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--red-bright);margin-bottom:32px}
+
+/* ── FOOTER ── */
+footer{background:var(--near-black);border-top:1px solid var(--border);padding:60px 24px 40px;text-align:center}
+.footer-logo{font-family:'Playfair Display',serif;font-size:20px;color:var(--white);margin-bottom:12px;font-weight:700}
+.footer-assembly{
+  display:inline-flex;align-items:center;gap:12px;
+  background:var(--surface2);border:1px solid var(--border);
+  padding:14px 24px;margin:20px auto;
+}
+.footer-assembly .asm-icon{font-size:24px}
+.footer-assembly .asm-text{text-align:left}
+.footer-assembly .asm-name{font-size:13px;color:var(--white);font-weight:500}
+.footer-assembly .asm-title{font-size:11px;color:var(--muted);margin-top:2px}
+.footer-sources{font-size:11px;color:var(--muted);line-height:2;margin-top:24px}
+.footer-sources a{color:var(--gold);text-decoration:none}
+.footer-line{width:40px;height:1px;background:var(--border);margin:24px auto}
+
+/* ── SHARE BAR ── */
+#sharebar{
+  position:fixed;bottom:24px;right:24px;z-index:999;
+  display:flex;flex-direction:column;gap:10px;
+}
+.share-btn{
+  display:flex;align-items:center;gap:8px;
+  padding:10px 16px;font-size:12px;font-weight:600;
+  text-decoration:none;letter-spacing:.5px;
+  transition:transform .15s,opacity .15s;
+  white-space:nowrap;
+}
+.share-btn:hover{transform:translateX(-3px)}
+.share-btn.wa{background:#25D366;color:#fff}
+.share-btn.copy{background:var(--surface3);color:var(--text);border:1px solid var(--border)}
+.share-btn svg{width:16px;height:16px;flex-shrink:0}
+
+/* ── RESPONSIVE ── */
+@media(max-width:700px){
+  .chart-grid-2,.chart-grid-3{grid-template-columns:1fr}
+  .kpi-grid{grid-template-columns:1fr 1fr}
+  .fmi-row{flex-wrap:wrap}
+  .toc-grid{grid-template-columns:1fr 1fr}
+  .hero-kpi-strip{flex-direction:column;width:100%;max-width:320px}
+  .hero-kpi{border-right:none;border-bottom:1px solid var(--border)}
+  .hero-kpi:last-child{border-bottom:none}
+  .stat-row{flex-wrap:wrap}
+  #sharebar{bottom:16px;right:16px}
+  .share-btn span{display:none}
+}
+</style>
+</head>
+<body>
+
+<!-- ── TOPBAR ── -->
+<div id="topbar">
+  <div class="tb-logo">
+    <span class="tb-flag">🇪🇨</span>
+    <span class="tb-name">Despacho · Asambleísta González Alvear</span>
+  </div>
+  <a href="https://wa.me/?text=Noboa%20llega%20a%20su%20tercer%20informe%20a%20la%20naci%C3%B3n%2C%20un%20pa%C3%ADs%20en%20crisis%3A%20datos%20sobre%20violencia%2C%20deuda%2C%20informalidad%20y%20recortes.%20Elaboraci%C3%B3n%3A%20Despacho%20Asamble%C3%ADsta%20Juan%20Andr%C3%A9s%20Gonz%C3%A1lez%20Alvear." target="_blank" class="tb-cta">
+    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.122 1.532 5.852L.073 23.927l6.292-1.438A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.885 0-3.652-.518-5.165-1.42l-.371-.22-3.733.853.871-3.634-.24-.381A9.96 9.96 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+    <span>Compartir</span>
+  </a>
+</div>
+
+<!-- ── SHARE FLOATING ── -->
+<div id="sharebar">
+  <a href="https://wa.me/?text=Noboa%20llega%20a%20su%20tercer%20informe%20a%20la%20naci%C3%B3n%2C%20un%20pa%C3%ADs%20en%20crisis%3A%20violencia%20hist%C3%B3rica%2C%20deuda%20r%C3%A9cord%2C%20empleo%20precario.%20Despacho%20Asamble%C3%ADsta%20Juan%20Andr%C3%A9s%20Gonz%C3%A1lez%20Alvear%20%F0%9F%87%AA%F0%9F%87%A8" target="_blank" class="share-btn wa">
+    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.122 1.532 5.852L.073 23.927l6.292-1.438A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.885 0-3.652-.518-5.165-1.42l-.371-.22-3.733.853.871-3.634-.24-.381A9.96 9.96 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+    <span>WhatsApp</span>
+  </a>
+  <button class="share-btn copy" onclick="copyLink()">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+    <span id="copy-label">Copiar enlace</span>
+  </button>
+</div>
+
+<!-- ═══════════════ HERO ═══════════════ -->
+<section id="hero">
+  <div class="hero-badge">🔴 En vivo · Tercer informe presidencial · 2026</div>
+  <div class="hero-eyebrow">Informe de datos · Despacho González Alvear · Ecuador 2023–2026</div>
+  <h1 class="hero-title">
+    Noboa llega a su <span class="gold">tercer informe</span><br>a la nación,<br>un país en <span class="red">crisis</span>
+  </h1>
+  <p class="hero-subtitle">Dos años y medio de gobierno: violencia histórica, deuda récord, precarización laboral y recorte al Estado. Los datos no mienten.</p>
+  <div class="hero-rule"></div>
+  <div class="hero-kpi-strip">
+    <div class="hero-kpi">
+      <span class="num">9,281</span>
+      <span class="lbl">Homicidios 2025</span>
+    </div>
+    <div class="hero-kpi">
+      <span class="num">56.3%</span>
+      <span class="lbl">Empleo informal</span>
+    </div>
+    <div class="hero-kpi">
+      <span class="num">$91.9B</span>
+      <span class="lbl">Deuda pública 2025</span>
+    </div>
+    <div class="hero-kpi">
+      <span class="num">$3.7B</span>
+      <span class="lbl">FMI bajo Noboa</span>
+    </div>
+  </div>
+  <div class="hero-author">Elaboración: Despacho del Asambleísta Juan Andrés González Alvear</div>
+  <div class="hero-scroll">Explorar el informe</div>
+</section>
+
+<!-- ═══════════════ ÍNDICE ═══════════════ -->
+<div id="toc" class="reveal">
+  <div class="inner">
+    <span class="toc-label">Contenido del informe</span>
+    <div class="toc-title">¿Qué encontrarás aquí?</div>
+    <div class="toc-grid">
+      <a class="toc-item" href="#sec-resumen" onclick="smoothTo('sec-resumen')">
+        <div class="toc-num">01</div>
+        <div class="toc-content">
+          <span class="toc-icon">📊</span>
+          <div class="toc-name">Resumen General</div>
+          <div class="toc-desc">Los 8 indicadores más demoledores del gobierno</div>
+        </div>
+        <div class="toc-arrow">→</div>
+      </a>
+      <a class="toc-item" href="#sec-seguridad" onclick="smoothTo('sec-seguridad')">
+        <div class="toc-num">02</div>
+        <div class="toc-content">
+          <span class="toc-icon">🔴</span>
+          <div class="toc-name">Crisis de Seguridad</div>
+          <div class="toc-desc">9,281 homicidios: el año más violento de la historia</div>
+        </div>
+        <div class="toc-arrow">→</div>
+      </a>
+      <a class="toc-item" href="#sec-empleo" onclick="smoothTo('sec-empleo')">
+        <div class="toc-num">03</div>
+        <div class="toc-content">
+          <span class="toc-icon">👷</span>
+          <div class="toc-name">Empleo y Trabajo</div>
+          <div class="toc-desc">Informalidad al 56% · El formal cae sin parar</div>
+        </div>
+        <div class="toc-arrow">→</div>
+      </a>
+      <a class="toc-item" href="#sec-inversion" onclick="smoothTo('sec-inversion')">
+        <div class="toc-num">04</div>
+        <div class="toc-content">
+          <span class="toc-icon">🏗️</span>
+          <div class="toc-name">Inversión Pública</div>
+          <div class="toc-desc">$143M menos en 13 sectores · Educación lidera el recorte</div>
+        </div>
+        <div class="toc-arrow">→</div>
+      </a>
+      <a class="toc-item" href="#sec-deuda" onclick="smoothTo('sec-deuda')">
+        <div class="toc-num">05</div>
+        <div class="toc-content">
+          <span class="toc-icon">💳</span>
+          <div class="toc-name">Deuda y FMI</div>
+          <div class="toc-desc">$91.9B de deuda · $3.7B del FMI bajo Noboa</div>
+        </div>
+        <div class="toc-arrow">→</div>
+      </a>
+      <a class="toc-item" href="#sec-balance" onclick="smoothTo('sec-balance')">
+        <div class="toc-num">06</div>
+        <div class="toc-content">
+          <span class="toc-icon">⚖️</span>
+          <div class="toc-name">Balance Final</div>
+          <div class="toc-desc">El panel completo · Conclusiones del informe</div>
+        </div>
+        <div class="toc-arrow">→</div>
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ RESUMEN ═══════════════ -->
+<div id="sec-resumen" class="section-full reveal">
+  <div class="inner">
+    <span class="section-label">01 · Resumen ejecutivo</span>
+    <h2 class="section-title">Los números que<br>definen un gobierno</h2>
+    <div class="red-rule"></div>
+    <p class="section-sub">De noviembre de 2023 a abril de 2026. Todos los indicadores apuntan en la misma dirección: deterioro.</p>
+    <div class="kpi-grid">
+      <div class="kpi-card">
+        <span class="kpi-icon">🔫</span>
+        <div class="kpi-label">Homicidios 2025</div>
+        <div class="kpi-value">9,281</div>
+        <div class="kpi-delta"><span class="bad">+608%</span> vs 2014 · Récord absoluto</div>
+      </div>
+      <div class="kpi-card">
+        <span class="kpi-icon">👷</span>
+        <div class="kpi-label">Empleo informal mar-26</div>
+        <div class="kpi-value">56.3%</div>
+        <div class="kpi-delta"><span class="bad">6 de cada 10</span> trabajadores sin derechos</div>
+      </div>
+      <div class="kpi-card">
+        <span class="kpi-icon">📉</span>
+        <div class="kpi-label">Empleo formal mar-26</div>
+        <div class="kpi-value">32.1%</div>
+        <div class="kpi-delta"><span class="bad">Cayó</span> desde 35.9% (nov-23)</div>
+      </div>
+      <div class="kpi-card">
+        <span class="kpi-icon">💳</span>
+        <div class="kpi-label">Deuda pública 2025</div>
+        <div class="kpi-value gold">$91.9B</div>
+        <div class="kpi-delta"><span class="bad">71.2%</span> del PIB nacional</div>
+      </div>
+      <div class="kpi-card">
+        <span class="kpi-icon">🏦</span>
+        <div class="kpi-label">Desembolsos FMI·Noboa</div>
+        <div class="kpi-value gold">$3.7B</div>
+        <div class="kpi-delta">En menos de 3 años de gobierno</div>
+      </div>
+      <div class="kpi-card">
+        <span class="kpi-icon">✂️</span>
+        <div class="kpi-label">Recorte inversión 2026</div>
+        <div class="kpi-value">-$143M</div>
+        <div class="kpi-delta"><span class="bad">13 sectores</span> en contracción</div>
+      </div>
+      <div class="kpi-card">
+        <span class="kpi-icon">🎓</span>
+        <div class="kpi-label">Recorte educación</div>
+        <div class="kpi-value">-$62M</div>
+        <div class="kpi-delta"><span class="bad">Mayor recorte</span> ene–abr 2026</div>
+      </div>
+      <div class="kpi-card">
+        <span class="kpi-icon">🏥</span>
+        <div class="kpi-label">Recorte salud</div>
+        <div class="kpi-value">-$13M</div>
+        <div class="kpi-delta"><span class="bad">Menos inversión</span> en hospitales</div>
+      </div>
+    </div>
+    <div class="insight-banner reveal">
+      <div class="headline">"Ecuador registró en 2025 el año más violento de su historia moderna."</div>
+      <div class="body">9,281 homicidios en un solo año. Un país que en 2016 registraba menos de mil muertes violentas al año ha multiplicado esa cifra por más de nueve.</div>
+    </div>
+    <div class="insight-banner reveal">
+      <div class="headline">"El ajuste fiscal golpeó primero a los más vulnerables."</div>
+      <div class="body">Educación, Salud y Bienestar Social concentran más del 60% de los recortes en inversión pública en 2026, mientras la deuda con el FMI sigue creciendo.</div>
+    </div>
+    <div class="insight-banner reveal">
+      <div class="headline">"La informalidad laboral no cede: 56 de cada 100 trabajadores están desprotegidos."</div>
+      <div class="body">La tasa de empleo informal alcanzó 56.3% en marzo de 2026. El empleo formal, en cambio, sigue cayendo desde el inicio del gobierno.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ DIVIDER 1 ═══════════════ -->
+<div class="img-divider reveal">
+  <div class="overlay"></div>
+  <!-- SVG scenic Ecuador inspired pattern -->
+  <svg class="divider-svg" viewBox="0 0 1200 220" preserveAspectRatio="xMidYMid slice">
+    <rect width="1200" height="220" fill="#080808"/>
+    <!-- Mountain silhouette -->
+    <polygon points="0,220 100,80 200,140 320,40 420,120 560,20 680,100 800,60 900,130 1000,50 1100,110 1200,70 1200,220" fill="rgba(192,57,43,.15)"/>
+    <polygon points="0,220 150,120 280,160 400,90 500,150 620,80 740,140 860,100 980,160 1100,80 1200,120 1200,220" fill="rgba(192,57,43,.08)"/>
+    <!-- Grid lines -->
+    <line x1="0" y1="110" x2="1200" y2="110" stroke="rgba(255,255,255,.04)" stroke-width="1"/>
+    <line x1="600" y1="0" x2="600" y2="220" stroke="rgba(255,255,255,.04)" stroke-width="1"/>
+  </svg>
+  <div class="caption">"Un país que en 2016 tenía<br><span>959 homicidios</span> hoy supera los <span>9,000</span>"</div>
+</div>
+
+<!-- ═══════════════ SEGURIDAD ═══════════════ -->
+<section id="sec-seguridad" class="section reveal">
+  <span class="section-label">02 · Crisis de seguridad</span>
+  <h2 class="section-title">El país más violento<br>de su historia</h2>
+  <div class="red-rule"></div>
+  <p class="section-sub">Ecuador pasó de ser uno de los países más tranquilos de América Latina a registrar cifras de homicidios comparables a zonas en conflicto. Bajo Noboa, el problema no se resolvió: se agravó.</p>
+
+  <div class="stat-row reveal">
+    <div class="stat-cell"><span class="stat-icon">📅</span><span class="stat-num">2016</span><span class="stat-lbl">Año del mínimo: 959 homicidios</span></div>
+    <div class="stat-cell"><span class="stat-icon">💀</span><span class="stat-num">9,281</span><span class="stat-lbl">Homicidios en 2025</span></div>
+    <div class="stat-cell"><span class="stat-icon">📈</span><span class="stat-num">×9.7</span><span class="stat-lbl">Multiplicación en 9 años</span></div>
+    <div class="stat-cell"><span class="stat-icon">🚫</span><span class="stat-num">90%</span><span class="stat-lbl">Crímenes de día en toques de queda</span></div>
+  </div>
+
+  <div class="noboa-period">▶ Gobierno Noboa: noviembre 2023 en adelante</div>
+
+  <div class="chart-card reveal">
+    <div class="c-title">Homicidios, asesinatos y sicariatos en Ecuador</div>
+    <div class="c-sub">Total anual · 2014–2025 · Fuente: datos oficiales Ecuador</div>
+    <div style="position:relative;width:100%;height:340px">
+      <canvas id="ch-hom" role="img" aria-label="Homicidios en Ecuador por año 2014-2025"></canvas>
+    </div>
+  </div>
+
+  <div class="chart-grid-2">
+    <div class="chart-card reveal">
+      <div class="c-title">Variación anual de homicidios</div>
+      <div class="c-sub">Cambio absoluto año a año</div>
+      <div style="position:relative;width:100%;height:240px">
+        <canvas id="ch-hom-delta" role="img" aria-label="Variación anual de homicidios"></canvas>
+      </div>
+    </div>
+    <div class="chart-card reveal">
+      <div class="c-title">Índice de escalada (2016 = 1×)</div>
+      <div class="c-sub">Cuántas veces el nivel base</div>
+      <div style="position:relative;width:100%;height:240px">
+        <canvas id="ch-hom-idx" role="img" aria-label="Índice de escalada de violencia"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <div class="quote-block reveal">
+    <div class="quote-text">"De los asesinatos ocurridos durante los toques de queda, el 90% se cometieron de día. El crimen organizado se adaptó. El Estado no."</div>
+    <div class="quote-source">Datos oficiales Ecuador · Análisis de toques de queda 2024</div>
+  </div>
+
+  <div class="chart-card reveal">
+    <div class="c-title">Mapa temporal: cada año, peor</div>
+    <div class="c-sub">Homicidios por año — resaltado: era Noboa (2024–2025)</div>
+    <div class="timeline-strip" id="hom-strip"></div>
+    <div style="font-size:11px;color:var(--muted);margin-top:6px">
+      <span style="display:inline-block;width:10px;height:10px;background:var(--red);margin-right:4px;vertical-align:middle"></span>Período gobierno Noboa
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ DIVIDER 2 ═══════════════ -->
+<div class="img-divider reveal" style="background:#0a0a0a">
+  <div class="overlay"></div>
+  <svg class="divider-svg" viewBox="0 0 1200 220" preserveAspectRatio="xMidYMid slice">
+    <rect width="1200" height="220" fill="#0a0a0a"/>
+    <!-- Workers silhouette -->
+    <rect x="0" y="150" width="1200" height="70" fill="rgba(201,168,76,.06)"/>
+    <rect x="0" y="160" width="1200" height="2" fill="rgba(201,168,76,.1)"/>
+    <!-- Bars representing informal work -->
+    <rect x="50" y="80" width="40" height="80" fill="rgba(192,57,43,.12)" rx="2"/>
+    <rect x="110" y="60" width="40" height="100" fill="rgba(192,57,43,.18)" rx="2"/>
+    <rect x="170" y="40" width="40" height="120" fill="rgba(192,57,43,.22)" rx="2"/>
+    <rect x="230" y="30" width="40" height="130" fill="rgba(192,57,43,.28)" rx="2"/>
+    <rect x="900" y="100" width="40" height="60" fill="rgba(201,168,76,.15)" rx="2"/>
+    <rect x="960" y="90" width="40" height="70" fill="rgba(201,168,76,.12)" rx="2"/>
+    <rect x="1020" y="110" width="40" height="50" fill="rgba(201,168,76,.10)" rx="2"/>
+  </svg>
+  <div class="caption">"<span>6 de cada 10 trabajadores</span><br>en el sector informal"</div>
+</div>
+
+<!-- ═══════════════ EMPLEO ═══════════════ -->
+<div id="sec-empleo" class="section-full reveal">
+  <div class="inner">
+    <span class="section-label">03 · Mercado laboral</span>
+    <h2 class="section-title">Más informalidad,<br>menos derechos</h2>
+    <div class="red-rule"></div>
+    <p class="section-sub">Bajo el gobierno de Noboa, el empleo formal continúa retrocediendo mientras la informalidad —sin seguridad social, jubilación ni estabilidad— se consolida como la norma ecuatoriana.</p>
+
+    <div class="chart-card reveal">
+      <div class="c-title">Empleo informal vs. formal · Serie histórica completa</div>
+      <div class="c-sub">Proporción de la PEA · 2007–2026 · Datos INEC</div>
+      <div style="position:relative;width:100%;height:360px">
+        <canvas id="ch-empleo" role="img" aria-label="Serie histórica de empleo formal e informal en Ecuador"></canvas>
+      </div>
+    </div>
+
+    <div class="chart-grid-2">
+      <div class="chart-card reveal">
+        <div class="c-title">Bajo Noboa: nov-23 → mar-26</div>
+        <div class="c-sub">Trayectoria durante el gobierno actual</div>
+        <div style="position:relative;width:100%;height:240px">
+          <canvas id="ch-emp-noboa" role="img" aria-label="Empleo durante gobierno Noboa"></canvas>
+        </div>
+      </div>
+      <div class="chart-card reveal">
+        <div class="c-title">Inicio vs. Actualidad</div>
+        <div class="c-sub">Comparativa: nov-23 vs mar-26</div>
+        <div style="position:relative;width:100%;height:240px">
+          <canvas id="ch-emp-comp" role="img" aria-label="Comparativa empleo formal vs informal"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <div class="insight-banner reveal">
+      <div class="headline">"El empleo formal cayó 3.8 puntos mientras el gobierno habla de reactivación."</div>
+      <div class="body">En noviembre de 2023, el empleo formal era 35.9%. En marzo de 2026 bajó a 32.1%. La informalidad, en cambio, escaló de 54.2% a 56.3%. Los ecuatorianos trabajan más y tienen menos derechos.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ DIVIDER 3 ═══════════════ -->
+<div class="img-divider reveal">
+  <div class="overlay"></div>
+  <svg class="divider-svg" viewBox="0 0 1200 220" preserveAspectRatio="xMidYMid slice">
+    <rect width="1200" height="220" fill="#080808"/>
+    <!-- Falling bars = recortes -->
+    <rect x="80" y="20" width="60" height="200" fill="rgba(192,57,43,.05)" rx="2"/>
+    <rect x="160" y="60" width="60" height="160" fill="rgba(192,57,43,.08)" rx="2"/>
+    <rect x="240" y="90" width="60" height="130" fill="rgba(192,57,43,.11)" rx="2"/>
+    <rect x="320" y="110" width="60" height="110" fill="rgba(192,57,43,.14)" rx="2"/>
+    <rect x="400" y="130" width="60" height="90" fill="rgba(192,57,43,.17)" rx="2"/>
+    <rect x="480" y="150" width="60" height="70" fill="rgba(192,57,43,.20)" rx="2"/>
+    <rect x="560" y="160" width="60" height="60" fill="rgba(192,57,43,.23)" rx="2"/>
+    <line x1="0" y1="220" x2="1200" y2="220" stroke="rgba(192,57,43,.3)" stroke-width="1"/>
+  </svg>
+  <div class="caption">"<span>$143 millones</span> menos<br>en inversión pública en 2026"</div>
+</div>
+
+<!-- ═══════════════ INVERSIÓN ═══════════════ -->
+<section id="sec-inversion" class="section reveal">
+  <span class="section-label">04 · Inversión pública</span>
+  <h2 class="section-title">El Estado<br>que se retira</h2>
+  <div class="red-rule"></div>
+  <p class="section-sub">En plena crisis social, el gobierno de Noboa recortó inversión pública en todos los sectores durante el primer cuatrimestre de 2026. Sin excepción. Educación, Salud y Seguridad lideran el retroceso.</p>
+
+  <div class="chart-card reveal">
+    <div class="c-title">Caída de inversión por sector · ene–abr 2026 vs 2025</div>
+    <div class="c-sub">Todos los sectores en negativo — variación en millones de dólares USD</div>
+    <div style="position:relative;width:100%;height:420px">
+      <canvas id="ch-inv" role="img" aria-label="Caída de inversión pública por sector 2026"></canvas>
+    </div>
+  </div>
+
+  <div class="chart-grid-2">
+    <div class="chart-card reveal">
+      <div class="c-title">¿Dónde golpea más el recorte?</div>
+      <div class="c-sub">% del total de -$143M por sector</div>
+      <div style="position:relative;width:100%;height:260px">
+        <canvas id="ch-inv-donut" role="img" aria-label="Distribución porcentual del recorte de inversión"></canvas>
+      </div>
+    </div>
+    <div class="chart-card reveal">
+      <div class="c-title">Ranking de sectores afectados</div>
+      <div class="c-sub">Por monto absoluto de recorte</div>
+      <div class="rank-list" id="inv-rank"></div>
+    </div>
+  </div>
+
+  <div class="quote-block reveal">
+    <div class="quote-text">"$62 millones menos para Educación. $13 millones menos para Salud. $20 millones menos para Seguridad. El Estado recorta mientras la crisis se profundiza."</div>
+    <div class="quote-source">Diferencia inversión pública ene–abr 2026 vs 2025</div>
+  </div>
+</section>
+
+<!-- ═══════════════ DIVIDER 4 ═══════════════ -->
+<div class="img-divider reveal" style="background:#090909">
+  <div class="overlay"></div>
+  <svg class="divider-svg" viewBox="0 0 1200 220" preserveAspectRatio="xMidYMid slice">
+    <rect width="1200" height="220" fill="#090909"/>
+    <!-- Debt spiral / upward curve -->
+    <path d="M 0,200 Q 200,180 300,160 Q 500,120 600,100 Q 700,80 800,60 Q 950,30 1200,10" stroke="rgba(201,168,76,.3)" stroke-width="2" fill="none"/>
+    <path d="M 0,200 Q 200,180 300,160 Q 500,120 600,100 Q 700,80 800,60 Q 950,30 1200,10 L 1200,220 L 0,220 Z" fill="rgba(201,168,76,.04)"/>
+    <!-- Dollar signs -->
+    <text x="100" y="100" font-size="40" fill="rgba(201,168,76,.06)" font-family="serif">$</text>
+    <text x="400" y="70" font-size="55" fill="rgba(201,168,76,.05)" font-family="serif">$</text>
+    <text x="750" y="50" font-size="70" fill="rgba(201,168,76,.07)" font-family="serif">$</text>
+    <text x="1050" y="30" font-size="90" fill="rgba(201,168,76,.08)" font-family="serif">$</text>
+  </svg>
+  <div class="caption">"<span>$91.9 mil millones</span> de deuda pública.<br>71.2% del PIB nacional"</div>
+</div>
+
+<!-- ═══════════════ DEUDA ═══════════════ -->
+<div id="sec-deuda" class="section-full reveal">
+  <div class="inner">
+    <span class="section-label">05 · Deuda y FMI</span>
+    <h2 class="section-title">La trampa<br>de la deuda</h2>
+    <div class="red-rule"></div>
+    <p class="section-sub">La deuda pública alcanza el 71% del PIB en 2025. El acuerdo con el FMI, ampliado a USD 5,000 millones en julio de 2025, ata la política económica a condiciones de ajuste externas.</p>
+
+    <div class="chart-card reveal">
+      <div class="c-title">Deuda pública total de Ecuador · 2000–2026</div>
+      <div class="c-sub">Miles de millones USD · % del PIB en eje secundario · Resaltado: gobierno Noboa</div>
+      <div style="position:relative;width:100%;height:340px">
+        <canvas id="ch-deuda" role="img" aria-label="Evolución deuda pública Ecuador 2000-2026"></canvas>
+      </div>
+    </div>
+
+    <div class="chart-grid-2">
+      <div class="chart-card reveal">
+        <div class="c-title">Deuda como % del PIB</div>
+        <div class="c-sub">Trayectoria histórica 2000–2026</div>
+        <div style="position:relative;width:100%;height:240px">
+          <canvas id="ch-deuda-pib" role="img" aria-label="Deuda pública porcentaje PIB"></canvas>
+        </div>
+      </div>
+      <div class="chart-card reveal">
+        <div class="c-title">FMI: comparativa por gobierno</div>
+        <div class="c-sub">Total desembolsado aproximado (USD miles de millones)</div>
+        <div style="position:relative;width:100%;height:240px">
+          <canvas id="ch-fmi-comp" role="img" aria-label="Comparativa FMI por gobierno"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <div class="chart-card reveal">
+      <div class="c-title">Historial completo de desembolsos del FMI a Ecuador</div>
+      <div class="c-sub">2019–2026 · En rojo: gobierno de Daniel Noboa</div>
+      <div id="fmi-timeline" style="margin-top:8px"></div>
+    </div>
+
+    <div class="insight-banner reveal">
+      <div class="headline">"Noboa recibió más del FMI en 2 años que Lasso en todo su gobierno."</div>
+      <div class="body">Lasso recibió USD 1.8B. Noboa acumula USD 3.7B al cierre de abril de 2026, con el acuerdo ampliado a USD 5B en julio de 2025. Cada desembolso viene con condiciones de ajuste que afectan directamente el gasto social.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ BALANCE FINAL ═══════════════ -->
+<section id="sec-balance" class="section reveal">
+  <span class="section-label">06 · Balance del informe</span>
+  <h2 class="section-title">El costo real<br>de estos años</h2>
+  <div class="red-rule"></div>
+
+  <div class="chart-card reveal">
+    <div class="c-title">Violencia e Informalidad: dos crisis simultáneas</div>
+    <div class="c-sub">Homicidios (eje izq.) · Empleo informal % (eje der.) · 2014–2025</div>
+    <div style="position:relative;width:100%;height:320px">
+      <canvas id="ch-dual" role="img" aria-label="Panel dual violencia e informalidad Ecuador"></canvas>
+    </div>
+  </div>
+
+  <div class="chart-grid-3" style="margin-top:32px">
+    <div class="insight-banner" style="margin-bottom:0">
+      <span style="font-size:24px;display:block;margin-bottom:8px">🔴</span>
+      <div class="headline" style="font-size:15px">Seguridad</div>
+      <div class="body">De 959 homicidios en 2016 a 9,281 en 2025. Un aumento de 9.7 veces. Los toques de queda fracasaron: el crimen se adaptó; el Estado, no.</div>
+    </div>
+    <div class="insight-banner" style="margin-bottom:0">
+      <span style="font-size:24px;display:block;margin-bottom:8px">👷</span>
+      <div class="headline" style="font-size:15px">Empleo</div>
+      <div class="body">El empleo formal retrocedió bajo Noboa. La informalidad supera el 56%. Seis de cada diez trabajadores ecuatorianos no tienen acceso a seguridad social.</div>
+    </div>
+    <div class="insight-banner" style="margin-bottom:0">
+      <span style="font-size:24px;display:block;margin-bottom:8px">💳</span>
+      <div class="headline" style="font-size:15px">Deuda y Estado</div>
+      <div class="body">$91.9B de deuda pública. $3.7B del FMI. $143M menos en inversión. El Estado se achica y se endeuda, mientras los servicios públicos retroceden.</div>
+    </div>
+  </div>
+
+  <div style="margin-top:48px;text-align:center;padding:40px 24px;background:var(--surface2);border:1px solid var(--border)">
+    <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:3px;color:var(--red);margin-bottom:16px;text-transform:uppercase">Comparte este informe</div>
+    <div style="font-family:'Playfair Display',serif;font-size:22px;color:var(--white);margin-bottom:20px;font-weight:700">
+      La ciudadanía merece conocer<br>la verdad de los datos
+    </div>
+    <a href="https://wa.me/?text=Noboa%20llega%20a%20su%20tercer%20informe%20a%20la%20naci%C3%B3n%2C%20un%20pa%C3%ADs%20en%20crisis%3A%20violencia%20hist%C3%B3rica%2C%20deuda%20r%C3%A9cord%2C%20empleo%20precario.%20Elaboraci%C3%B3n%3A%20Despacho%20Asamble%C3%ADsta%20Juan%20Andr%C3%A9s%20Gonz%C3%A1lez%20Alvear%20%F0%9F%87%AA%F0%9F%87%A8" target="_blank"
+       style="display:inline-flex;align-items:center;gap:10px;background:#25D366;color:#fff;padding:14px 28px;text-decoration:none;font-weight:600;font-size:14px;letter-spacing:.5px;margin:0 8px">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.122 1.532 5.852L.073 23.927l6.292-1.438A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.885 0-3.652-.518-5.165-1.42l-.371-.22-3.733.853.871-3.634-.24-.381A9.96 9.96 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+      Compartir por WhatsApp
+    </a>
+  </div>
+</section>
+
+<!-- ═══════════════ FOOTER ═══════════════ -->
+<footer>
+  <div class="footer-logo">🇪🇨 Ecuador en Datos · 2026</div>
+  <div class="footer-line"></div>
+
+  <div class="footer-assembly">
+    <div class="asm-icon">🏛️</div>
+    <div class="asm-text">
+      <div class="asm-name">Elaboración: Despacho del Asambleísta Juan Andrés González Alvear</div>
+      <div class="asm-title">Asamblea Nacional del Ecuador · Informe de datos basado en fuentes oficiales</div>
+    </div>
+  </div>
+
+  <div class="footer-line"></div>
+  <div class="footer-sources">
+    <strong style="color:var(--muted2)">Fuentes de datos:</strong><br>
+    Instituto Nacional de Estadística y Censos (INEC) · Ministerio de Finanzas del Ecuador<br>
+    Fondo Monetario Internacional (FMI) · Policía Nacional del Ecuador<br>
+    Datos oficiales del Estado ecuatoriano · Actualización: abril 2026<br>
+    <br>
+    <span style="color:var(--border2)">Este informe tiene fines informativos y de rendición de cuentas ciudadana. Todos los datos provienen de fuentes verificables.</span>
+  </div>
+</footer>
+
+<script>
+// ═══════ NAVEGACIÓN SUAVE ═══════
+function smoothTo(id){
+  const el=document.getElementById(id);
+  if(el){el.scrollIntoView({behavior:'smooth',block:'start'});return false}
+}
+
+// ═══════ COPY LINK ═══════
+function copyLink(){
+  navigator.clipboard.writeText(window.location.href).then(()=>{
+    const lbl=document.getElementById('copy-label');
+    lbl.textContent='¡Copiado!';
+    setTimeout(()=>lbl.textContent='Copiar enlace',2000);
+  });
+}
+
+// ═══════ DATOS ═══════
+const DATA={
+  homicidios:{years:[2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024,2025],vals:[1310,1050,959,970,996,1189,1372,2495,4886,8248,7063,9281]},
+  informal:{labels:['dic-07','jun-08','dic-08','dic-09','jun-10','dic-10','jun-11','dic-11','jun-12','dic-12','jun-13','dic-13','mar-14','jun-14','sep-14','dic-14','mar-15','jun-15','sep-15','dic-15','mar-16','jun-16','sep-16','dic-16','mar-17','jun-17','sep-17','dic-17','mar-18','jun-18','sep-18','dic-18','mar-19','jun-19','sep-19','dic-19','sep-20','oct-20','nov-20','dic-20','ene-21','feb-21','mar-21','abr-21','may-21','jun-21','jul-21','ago-21','sep-21','oct-21','nov-21','dic-21','ene-22','feb-22','mar-22','abr-22','may-22','jun-22','jul-22','ago-22','sep-22','oct-22','nov-22','dic-22','ene-23','feb-23','mar-23','abr-23','may-23','jun-23','jul-23','ago-23','sep-23','oct-23','nov-23','dic-23','ene-24','feb-24','mar-24','abr-24','may-24','jun-24','jul-24','ago-24','sep-24','oct-24','nov-24','dic-24','ene-25','feb-25','mar-25','abr-25','may-25','jun-25','jul-25','ago-25','sep-25','oct-25','nov-25','dic-25','ene-26','feb-26','mar-26'],vals:[45.13,45.43,43.47,43.79,42.33,42.84,42.23,42.73,41.4,40.81,43.21,40.06,41.78,38.89,41.36,39.67,42.07,39.31,40.63,40.36,43.04,42.99,44.47,43.68,45.63,44.98,46.44,44.05,44.97,47.45,46.2,46.17,46.72,46.27,46.67,46.75,52.48,52.09,52.85,51.61,51.01,49.85,50.91,52.66,52.67,49.94,51.22,50.6,49.18,52.17,49.51,50.65,53.13,51.38,50.98,51.72,51.75,51.58,51.94,52.19,52.09,53.74,51.18,53.37,54.98,54.26,53.67,53.84,53.27,52.75,54.76,54.59,54.4,55.05,54.2,55.69,54.61,55.1,55.38,53.41,54.44,53.46,54.41,54.37,55.38,54.89,53.53,57.99,55.99,52.41,55.47,54.11,51.77,54.46,51.27,54.27,53.1,51.47,53.42,54.17,54.48,51.79,56.3]},
+  formal:{vals:[43.2,41.74,44.77,39.18,41.25,44.68,42.56,45.53,45.19,46.53,42.84,47.87,45.49,48.81,47.78,49.28,43.72,45.9,46.0,46.5,39.97,41.05,39.15,41.19,38.51,40.1,40.38,42.26,41.11,38.92,39.61,40.64,37.91,37.95,38.52,38.85,30.76,28.24,28.52,30.41,32.0,31.27,31.63,30.82,30.22,31.25,31.79,32.44,33.54,31.96,33.7,33.94,33.08,31.66,32.73,32.5,33.22,34.05,32.09,33.32,35.4,33.74,35.58,36.04,34.81,32.95,34.59,35.17,36.37,34.46,35.47,34.97,35.47,34.83,35.77,35.91,34.92,34.75,33.94,34.44,33.62,35.42,34.86,34.34,36.14,35.29,33.69,33.03,34.03,35.43,34.15,35.77,35.19,35.87,38.6,35.1,37.02,37.41,36.32,37.07,36.62,37.08,32.06]},
+  inversion:{sectores:['Educacion','Seguridad','Agropecuario','Salud','Des. Urbano y Vivienda','Comercio Ext.','Administrativo','Bienestar Social','Turismo','Jurisdiccional','Transparencia','Exterior','Electoral'],vals:[-62.18,-20.17,-14.04,-12.97,-12.38,-7.43,-5.12,-4.76,-1.99,-0.5,-0.31,-0.05,-0.04]},
+  deuda:{years:[2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024,2025,2026],total:[14.1,14.2,14.1,14.5,14.5,14.5,13.5,13.9,13.7,10.2,13.3,14.6,18.7,22.8,30.1,32.8,38.1,46.5,49.5,57.3,63.2,78.3,80.9,83.9,85.3,91.9,92.6],pib_pct:[80.2,61.3,52.3,46.9,41.3,36.1,29.5,27.8,22.5,17.0,19.6,18.4,21.3,23.7,29.3,33.7,39.0,44.5,46.0,53.3,65.9,73.1,69.6,69.3,68.4,71.2,68.5]},
+  fmi:[{fecha:'mar-2019',gov:'Lenín Moreno',prog:'EFF 2019',monto:'USD 652M',noboa:false},{fecha:'jul-2019',gov:'Lenín Moreno',prog:'EFF 2019',monto:'USD 251M',noboa:false},{fecha:'dic-2019',gov:'Lenín Moreno',prog:'EFF 2019',monto:'USD 498M',noboa:false},{fecha:'may-2020',gov:'Lenín Moreno',prog:'Rapid Financing (pandemia)',monto:'USD 643M',noboa:false},{fecha:'sep-2020',gov:'Lenín Moreno',prog:'Nuevo EFF 2020',monto:'USD 2.000M',noboa:false},{fecha:'dic-2020',gov:'Lenín Moreno',prog:'Primera revisión EFF',monto:'USD 500M',noboa:false},{fecha:'sep-2021',gov:'Guillermo Lasso',prog:'2ª y 3ª revisión EFF',monto:'USD 800M',noboa:false},{fecha:'jun-2022',gov:'Guillermo Lasso',prog:'4ª y 5ª revisión EFF',monto:'USD 1.000M',noboa:false},{fecha:'may-2024',gov:'Daniel Noboa',prog:'Nuevo EFF 2024',monto:'USD 1.000M',noboa:true},{fecha:'dic-2024',gov:'Daniel Noboa',prog:'Primera revisión EFF 2024',monto:'USD 500M',noboa:true},{fecha:'jul-2025',gov:'Daniel Noboa',prog:'Segunda revisión EFF',monto:'USD 600M',noboa:true},{fecha:'oct-2025',gov:'Daniel Noboa',prog:'Tercera revisión EFF',monto:'USD 600M',noboa:true},{fecha:'dic-2025',gov:'Daniel Noboa',prog:'Cuarta revisión EFF',monto:'USD 630M',noboa:true},{fecha:'abr-2026',gov:'Daniel Noboa',prog:'Quinta revisión EFF',monto:'USD 394M',noboa:true}]
+};
+
+const C={red:'#c0392b',redB:'#e74c3c',redDim:'rgba(192,57,43,.15)',gold:'#c9a84c',white:'#f0ede8',muted:'#6b6b6b',muted2:'#888',border:'rgba(255,255,255,.06)',green:'#27ae60'};
+const BASE={responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{grid:{color:C.border},ticks:{color:C.muted,font:{family:"'IBM Plex Mono',monospace",size:10}}},y:{grid:{color:C.border},ticks:{color:C.muted,font:{family:"'IBM Plex Mono',monospace",size:10}}}}};
+const TT={backgroundColor:'#181818',borderColor:'rgba(192,57,43,.4)',borderWidth:1,titleColor:C.white,bodyColor:C.muted2,titleFont:{family:"'Playfair Display',serif",size:13},bodyFont:{family:"'IBM Plex Mono',monospace",size:11}};
+
+// ── Homicidios line ──
+(function(){
+  const {years,vals}=DATA.homicidios;
+  const ctx=document.getElementById('ch-hom').getContext('2d');
+  const grad=ctx.createLinearGradient(0,0,0,340);
+  grad.addColorStop(0,'rgba(192,57,43,.4)');grad.addColorStop(1,'rgba(192,57,43,.0)');
+  new Chart(ctx,{type:'line',data:{labels:years,datasets:[{data:vals,borderColor:C.redB,borderWidth:2.5,backgroundColor:grad,fill:true,pointRadius:vals.map((_,i)=>years[i]>=2024?9:4),pointBackgroundColor:vals.map((_,i)=>years[i]>=2024?C.redB:C.muted),pointBorderColor:'#111',pointBorderWidth:2,tension:0.3}]},options:{...BASE,plugins:{legend:{display:false},tooltip:{...TT,callbacks:{label:c=>`${c.parsed.y.toLocaleString()} homicidios`}}},scales:{x:{...BASE.scales.x,ticks:{...BASE.scales.x.ticks,autoSkip:false}},y:{...BASE.scales.y,ticks:{...BASE.scales.y.ticks,callback:v=>v.toLocaleString()},min:0}}}});
+})();
+
+// ── Homicidios delta ──
+(function(){
+  const {years,vals}=DATA.homicidios;
+  const deltas=vals.slice(1).map((v,i)=>v-vals[i]);
+  new Chart(document.getElementById('ch-hom-delta'),{type:'bar',data:{labels:years.slice(1),datasets:[{data:deltas,backgroundColor:deltas.map(v=>v>0?'rgba(192,57,43,.75)':'rgba(39,174,96,.6)'),borderRadius:2}]},options:{...BASE,plugins:{legend:{display:false},tooltip:{...TT,callbacks:{label:c=>`${c.parsed.y>0?'+':''}${c.parsed.y.toLocaleString()}`}}},scales:{x:{...BASE.scales.x,ticks:{...BASE.scales.x.ticks,autoSkip:false}},y:{...BASE.scales.y,ticks:{...BASE.scales.y.ticks,callback:v=>(v>=0?'+':'')+v.toLocaleString()}}}}});
+})();
+
+// ── Homicidios índice ──
+(function(){
+  const {years,vals}=DATA.homicidios;
+  const base=vals[2];const idx=vals.map(v=>(v/base).toFixed(2));
+  new Chart(document.getElementById('ch-hom-idx'),{type:'line',data:{labels:years,datasets:[{data:idx,borderColor:C.gold,borderWidth:2,backgroundColor:'rgba(201,168,76,.08)',fill:true,pointRadius:4,pointBackgroundColor:idx.map((_,i)=>years[i]>=2024?C.gold:C.muted),pointBorderColor:'#111',pointBorderWidth:1,tension:0.3},{data:Array(years.length).fill(1),borderColor:'rgba(255,255,255,.2)',borderWidth:1,borderDash:[4,4],pointRadius:0,fill:false}]},options:{...BASE,plugins:{legend:{display:false},tooltip:{...TT,callbacks:{label:c=>`${c.parsed.y}x vs 2016`}}},scales:{x:{...BASE.scales.x,ticks:{...BASE.scales.x.ticks,autoSkip:false}},y:{...BASE.scales.y,ticks:{...BASE.scales.y.ticks,callback:v=>v+'x'}}}}});
+})();
+
+// ── Timeline strip ──
+(function(){
+  const {years,vals}=DATA.homicidios;
+  const strip=document.getElementById('hom-strip');
+  years.forEach((y,i)=>{const n=y>=2024;const c=document.createElement('div');c.className='tl-cell'+(n?' highlight':'');c.innerHTML=`<div class="tl-year">${y}</div><div class="tl-val${n?' danger':''}">${vals[i].toLocaleString()}</div>`;strip.appendChild(c);});
+})();
+
+// ── Empleo histórico ──
+(function(){
+  const ctx=document.getElementById('ch-empleo').getContext('2d');
+  const gI=ctx.createLinearGradient(0,0,0,360);gI.addColorStop(0,'rgba(192,57,43,.3)');gI.addColorStop(1,'rgba(192,57,43,.0)');
+  const gF=ctx.createLinearGradient(0,0,0,360);gF.addColorStop(0,'rgba(201,168,76,.2)');gF.addColorStop(1,'rgba(201,168,76,.0)');
+  new Chart(ctx,{type:'line',data:{labels:DATA.informal.labels,datasets:[{label:'Informal %',data:DATA.informal.vals,borderColor:C.redB,borderWidth:2,backgroundColor:gI,fill:true,pointRadius:0,tension:0.4},{label:'Formal %',data:DATA.formal.vals,borderColor:C.gold,borderWidth:1.5,backgroundColor:gF,fill:true,pointRadius:0,tension:0.4}]},options:{...BASE,plugins:{legend:{display:true,position:'top',labels:{color:C.muted2,font:{size:11},boxWidth:12,padding:16}},tooltip:{...TT,mode:'index',intersect:false,callbacks:{label:c=>`${c.dataset.label}: ${c.parsed.y.toFixed(1)}%`}}},scales:{x:{...BASE.scales.x,ticks:{...BASE.scales.x.ticks,maxTicksLimit:15,maxRotation:45}},y:{...BASE.scales.y,ticks:{...BASE.scales.y.ticks,callback:v=>v+'%'},min:15,max:65}}}});
+})();
+
+// ── Empleo Noboa ──
+(function(){
+  const s=75;const lbls=DATA.informal.labels.slice(s);
+  new Chart(document.getElementById('ch-emp-noboa'),{type:'line',data:{labels:lbls,datasets:[{label:'Informal',data:DATA.informal.vals.slice(s),borderColor:C.redB,borderWidth:2,pointRadius:3,pointBackgroundColor:C.redB,pointBorderColor:'#111',tension:0.3,fill:false},{label:'Formal',data:DATA.formal.vals.slice(s),borderColor:C.gold,borderWidth:1.5,pointRadius:3,pointBackgroundColor:C.gold,pointBorderColor:'#111',tension:0.3,fill:false}]},options:{...BASE,plugins:{legend:{display:true,position:'top',labels:{color:C.muted2,font:{size:10},boxWidth:10,padding:12}},tooltip:{...TT,mode:'index',intersect:false,callbacks:{label:c=>`${c.dataset.label}: ${c.parsed.y.toFixed(1)}%`}}},scales:{x:{...BASE.scales.x,ticks:{...BASE.scales.x.ticks,maxTicksLimit:8,maxRotation:45}},y:{...BASE.scales.y,ticks:{...BASE.scales.y.ticks,callback:v=>v+'%'},min:28,max:62}}}});
+})();
+
+// ── Empleo comparativa ──
+(function(){
+  new Chart(document.getElementById('ch-emp-comp'),{type:'bar',data:{labels:['Inicio (nov-23)','Actualidad (mar-26)'],datasets:[{label:'Informal %',data:[54.20,56.30],backgroundColor:['rgba(192,57,43,.55)','rgba(192,57,43,.9)'],borderRadius:3},{label:'Formal %',data:[35.77,32.06],backgroundColor:['rgba(201,168,76,.45)','rgba(201,168,76,.8)'],borderRadius:3}]},options:{...BASE,plugins:{legend:{display:true,position:'top',labels:{color:C.muted2,font:{size:10},boxWidth:10,padding:12}},tooltip:{...TT,callbacks:{label:c=>`${c.dataset.label}: ${c.parsed.y.toFixed(1)}%`}}},scales:{x:{...BASE.scales.x},y:{...BASE.scales.y,ticks:{...BASE.scales.y.ticks,callback:v=>v+'%'},min:0,max:70}}}});
+})();
+
+// ── Inversión barras ──
+(function(){
+  const{sectores,vals}=DATA.inversion;
+  const sorted=sectores.map((s,i)=>({s,v:vals[i]})).sort((a,b)=>a.v-b.v);
+  new Chart(document.getElementById('ch-inv'),{type:'bar',data:{labels:sorted.map(d=>d.s),datasets:[{data:sorted.map(d=>d.v),backgroundColor:sorted.map(d=>d.v<-20?'rgba(192,57,43,.9)':d.v<-10?'rgba(192,57,43,.7)':'rgba(192,57,43,.45)'),borderRadius:2,barThickness:18}]},options:{...BASE,indexAxis:'y',plugins:{legend:{display:false},tooltip:{...TT,callbacks:{label:c=>`$${c.parsed.x.toFixed(2)}M`}}},scales:{x:{...BASE.scales.x,ticks:{...BASE.scales.x.ticks,callback:v=>`$${v}M`}},y:{...BASE.scales.y,ticks:{...BASE.scales.y.ticks,font:{size:11}}}}}});
+})();
+
+// ── Inversión donut ──
+(function(){
+  const top5=DATA.inversion.sectores.slice(0,5);const top5v=DATA.inversion.vals.slice(0,5).map(Math.abs);
+  const rest=DATA.inversion.vals.slice(5).reduce((s,v)=>s+Math.abs(v),0);
+  const total=DATA.inversion.vals.reduce((s,v)=>s+Math.abs(v),0);
+  new Chart(document.getElementById('ch-inv-donut'),{type:'doughnut',data:{labels:[...top5,'Otros'],datasets:[{data:[...top5v,rest],backgroundColor:['rgba(192,57,43,.9)','rgba(192,57,43,.75)','rgba(192,57,43,.6)','rgba(192,57,43,.5)','rgba(192,57,43,.4)','rgba(100,100,100,.4)'],borderWidth:2,borderColor:'#111',hoverOffset:6}]},options:{responsive:true,maintainAspectRatio:false,cutout:'60%',plugins:{legend:{display:true,position:'right',labels:{color:C.muted2,font:{size:10},boxWidth:10,padding:8}},tooltip:{...TT,callbacks:{label:c=>`$${c.parsed.toFixed(2)}M (${(c.parsed/total*100).toFixed(0)}%)`}}}}});
+})();
+
+// ── Inversión rank ──
+(function(){
+  const{sectores,vals}=DATA.inversion;
+  const el=document.getElementById('inv-rank');
+  sectores.forEach((s,i)=>{
+    const pct=(Math.abs(vals[i])/Math.abs(vals[0])*100).toFixed(0);
+    el.innerHTML+=`<div class="rank-row"><div class="rank-n">${String(i+1).padStart(2,'0')}</div><div class="rank-name">${s}</div><div class="rank-track"><div class="rank-fill" style="width:${pct}%"></div></div><div class="rank-val" style="color:#e74c3c">$${Math.abs(vals[i]).toFixed(1)}M</div></div>`;
+  });
+})();
+
+// ── Deuda total ──
+(function(){
+  const{years,total,pib_pct}=DATA.deuda;
+  const ctx=document.getElementById('ch-deuda').getContext('2d');
+  const grad=ctx.createLinearGradient(0,0,0,340);grad.addColorStop(0,'rgba(201,168,76,.3)');grad.addColorStop(1,'rgba(201,168,76,.0)');
+  new Chart(ctx,{type:'line',data:{labels:years,datasets:[{label:'Deuda total (B USD)',data:total,borderColor:C.gold,borderWidth:2.5,backgroundColor:grad,fill:true,pointRadius:years.map(y=>y>=2024?7:3),pointBackgroundColor:years.map(y=>y>=2024?C.redB:C.gold),pointBorderColor:'#111',pointBorderWidth:2,tension:0.3,yAxisID:'y1'},{label:'% del PIB',data:pib_pct,borderColor:'rgba(192,57,43,.6)',borderWidth:1.5,borderDash:[4,3],pointRadius:0,fill:false,tension:0.3,yAxisID:'y2'}]},options:{...BASE,plugins:{legend:{display:true,position:'top',labels:{color:C.muted2,font:{size:11},boxWidth:12,padding:16}},tooltip:{...TT,mode:'index',intersect:false,callbacks:{label:c=>c.dataset.yAxisID==='y1'?`Deuda: $${c.parsed.y.toFixed(1)}B`:`PIB: ${c.parsed.y.toFixed(1)}%`}}},scales:{x:{...BASE.scales.x,ticks:{...BASE.scales.x.ticks,maxTicksLimit:14}},y1:{position:'left',...BASE.scales.y,ticks:{...BASE.scales.y.ticks,callback:v=>`$${v}B`}},y2:{position:'right',grid:{display:false},ticks:{color:C.muted,font:{size:10},callback:v=>v+'%'}}}}});
+})();
+
+// ── Deuda % PIB ──
+(function(){
+  const{years,pib_pct}=DATA.deuda;
+  const cols=pib_pct.map((v,i)=>years[i]>=2024?C.redB:v>60?'rgba(192,57,43,.7)':v>40?C.gold:C.muted2);
+  new Chart(document.getElementById('ch-deuda-pib'),{type:'bar',data:{labels:years,datasets:[{data:pib_pct,backgroundColor:cols,borderRadius:2}]},options:{...BASE,plugins:{legend:{display:false},tooltip:{...TT,callbacks:{label:c=>`${c.parsed.y.toFixed(1)}% del PIB`}}},scales:{x:{...BASE.scales.x,ticks:{...BASE.scales.x.ticks,maxTicksLimit:10,maxRotation:45}},y:{...BASE.scales.y,ticks:{...BASE.scales.y.ticks,callback:v=>v+'%'},min:0,max:85}}}});
+})();
+
+// ── FMI por gobierno ──
+(function(){
+  new Chart(document.getElementById('ch-fmi-comp'),{type:'bar',data:{labels:['Lenín Moreno','Guillermo Lasso','Daniel Noboa\n(a abr-26)'],datasets:[{data:[4.5,1.8,3.7],backgroundColor:['rgba(100,100,100,.5)','rgba(100,100,100,.5)','rgba(192,57,43,.85)'],borderRadius:4,barThickness:50}]},options:{...BASE,plugins:{legend:{display:false},tooltip:{...TT,callbacks:{label:c=>`USD $${c.parsed.y}B`}}},scales:{x:{...BASE.scales.x},y:{...BASE.scales.y,ticks:{...BASE.scales.y.ticks,callback:v=>`$${v}B`},min:0,max:5.5}}}});
+})();
+
+// ── FMI timeline DOM ──
+(function(){
+  const el=document.getElementById('fmi-timeline');
+  DATA.fmi.forEach(d=>{el.innerHTML+=`<div class="fmi-row"><div class="fmi-dot${d.noboa?' noboa':''}"></div><div class="fmi-date">${d.fecha}</div><div class="fmi-gov ${d.noboa?'noboa-badge':'other'}">${d.gov}</div><div class="fmi-desc">${d.prog}</div><div class="fmi-amount">${d.monto}</div></div>`;});
+})();
+
+// ── Dual axis ──
+(function(){
+  const annualInf=[[2014,40.42],[2015,40.59],[2016,43.54],[2017,45.28],[2018,46.20],[2019,46.60],[2020,52.26],[2021,50.86],[2022,52.09],[2023,54.29],[2024,54.75],[2025,53.49]];
+  new Chart(document.getElementById('ch-dual'),{type:'line',data:{labels:DATA.homicidios.years,datasets:[{label:'Homicidios',data:DATA.homicidios.vals,borderColor:C.redB,borderWidth:2.5,pointRadius:5,pointBackgroundColor:C.redB,pointBorderColor:'#111',pointBorderWidth:2,yAxisID:'y1',tension:0.3,fill:false},{label:'Empleo informal %',data:annualInf.map(d=>d[1]),borderColor:C.gold,borderWidth:2,pointRadius:4,pointBackgroundColor:C.gold,pointBorderColor:'#111',pointBorderWidth:2,yAxisID:'y2',tension:0.3,fill:false,borderDash:[4,3]}]},options:{...BASE,plugins:{legend:{display:true,position:'top',labels:{color:C.muted2,font:{size:11},boxWidth:12,padding:16}},tooltip:{...TT,mode:'index',intersect:false,callbacks:{label:c=>c.dataset.yAxisID==='y1'?`Homicidios: ${c.parsed.y.toLocaleString()}`:`Informal: ${c.parsed.y.toFixed(1)}%`}}},scales:{x:{...BASE.scales.x,ticks:{...BASE.scales.x.ticks,autoSkip:false}},y1:{position:'left',...BASE.scales.y,ticks:{...BASE.scales.y.ticks,callback:v=>v.toLocaleString()},min:0},y2:{position:'right',grid:{display:false},ticks:{color:C.gold,font:{size:10},callback:v=>v+'%'},min:35,max:60}}}});
+})();
+
+// ── Scroll reveal ──
+(function(){
+  const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')});},{threshold:0.1,rootMargin:'0px 0px -40px 0px'});
+  document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+})();
+</script>
+</body>
+</html>
